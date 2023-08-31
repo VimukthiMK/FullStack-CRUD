@@ -1,8 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { Link ,useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
 
 export default function AddUser() {
+
+    let navigate=useNavigate()
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -16,16 +19,21 @@ export default function AddUser() {
       [name]: value,
     }));
   };
+    const onSubmit = async (e)=> {
+      e.preventDefault();
+      await axios.post("http://localhost:8080/api/user",user)
+      navigate("/")
+    }
+
   
-  
-    
     return (
       <div className='container'>
         <div className='row'>
           <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow '>
             <h2 className='text-center m-4'>Register User</h2>
   
-            <div className="mb-3">
+           <form onSubmit={(e)=>onSubmit(e)}>
+           <div className="mb-3">
                     <label for="name" className="form-label" >Name</label>
                     <input type={"text"} name='name' className="form-control" value={user.name} onChange={onInputChange} placeholder="Enter Your Name"required/>
             </div>
@@ -41,10 +49,11 @@ export default function AddUser() {
             </div>
             <div className='text-center align-middle'>
             <button type="submit" className='btn btn-primary mx-2'> Submit </button>
-            <button type="submit" className='btn btn-outline-danger mx-2'> Submit </button>
+            <Link className='btn btn-outline-danger mx-2' to={"/"}> Cancel </Link>
             
             
             </div>
+           </form>
             
           </div>
   
