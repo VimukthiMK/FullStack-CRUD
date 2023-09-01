@@ -1,14 +1,16 @@
 package com.vimukthimk.BackendApplication.controller;
 
+import com.vimukthimk.BackendApplication.exception.UserNotFoundException;
 import com.vimukthimk.BackendApplication.model.User;
 import com.vimukthimk.BackendApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:3002")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class UserController{
 
@@ -23,6 +25,11 @@ public class UserController{
     @GetMapping("/users")
     List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    User getUserById(@PathVariable long id){
+        return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
     }
 
 }
