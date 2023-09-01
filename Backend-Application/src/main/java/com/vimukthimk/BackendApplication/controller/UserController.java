@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -31,5 +32,18 @@ public class UserController{
     User getUserById(@PathVariable long id){
         return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
     }
+
+    @PutMapping("/user/{id}")
+    User updateUser(@RequestBody User newUser, @PathVariable Long id){
+        return userRepository.findById(id)
+                .map(user-> {
+            user.setName(newUser.getName());
+            user.setUsername(newUser.getUsername());
+            user.setEmail(newUser.getEmail());
+            return userRepository.save(user);
+        }).orElseThrow(()->new UserNotFoundException(id));
+
+    }
+    
 
 }
