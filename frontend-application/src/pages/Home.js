@@ -31,7 +31,7 @@ export default function Home() {
    {
     users.map((user,index)=>(
         <tr className='text-center align-middle'>
-            <th scope='row' key={index}>{index+1}</th>
+            <th scope='row'>{user.id}</th>
             <td>{user.username}</td>
             <td>{user.name}</td>
             <td>{user.email}</td>
