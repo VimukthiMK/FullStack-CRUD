@@ -37,7 +37,7 @@ export default function Home() {
             <td>{user.email}</td>
             <td>
             <Link className='btn btn-secondary mx-2' to={"/viewuser"}> View </Link>
-            <Link className='btn btn-outline-primary mx-2' to={"/edit"}> Edit </Link>
+            <Link className='btn btn-outline-primary mx-2' to={`/edituser/${user.id}`}> Edit </Link>
             <Link className='btn btn-danger mx-2' to={"/deleteuser"}> Delete </Link>
             </td>
         </tr>
