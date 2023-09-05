@@ -6,10 +6,10 @@ export default function Home() {
     const [users,setUsers]=useState([])
 
         useEffect(()=> {
-            loadUSers()
+            loadUsers()
         },[])
 
-        const loadUSers=async()=> {
+        const loadUsers=async()=> {
             const result=await axios.get("http://localhost:8080/api/users")
             setUsers(result.data)
         }   

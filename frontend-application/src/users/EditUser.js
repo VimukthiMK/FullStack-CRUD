@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link ,useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
@@ -13,6 +13,16 @@ export default function EditUser() {
     username: '',
     email: '',
   })
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:8080/api/user/${id}`, user);
+      navigate('/');
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
   
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,22 +32,18 @@ export default function EditUser() {
     }))
   }
 
-    const onSubmit = async (e)=> {
-      e.preventDefault();
-      await axios.put(`http://localhost:8080/api/user/${id}`,user)
-      navigate("/")
-    }
+    useEffect(()=> {
+      loadUser() 
+    },[])
 
-
-
-    const loadUser = useCallback(async()=>{
-      const result= await axios.get(`http://localhost:8080/api/user/${id}`)
-      setUser(result.data)
-    }, [id])
-    
-    useEffect(() => {
-      loadUser(); // Call loadUser here
-    }, [loadUser]);
+    const loadUser = async () => {
+      try {
+        const result = await axios.get(`http://localhost:8080/api/user/${id}`);
+        setUser(result.data);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
   
     return (
       <div className='container'>
