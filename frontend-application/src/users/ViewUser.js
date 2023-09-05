@@ -24,7 +24,9 @@ export default function ViewUser() {
                   </ul>
                 </div>
               </div>
-              <Link className='btn btn-primary mx-2' to={"/"}> Back to Home </Link>
+              <div className='text-center align-middle'>
+              <Link className='btn btn-primary mx-2 m-4 ' to={"/"}> Back to Home </Link>
+              </div>
             
           </div>
   
