@@ -11,4 +11,4 @@ COPY out/artifacts/Backend_Application_jar/Backend-Application.jar app.jar
 EXPOSE 8080
 
 # Command to run your Spring Boot application
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar"java -jar app.jar, "app.jar"]

@@ -1,0 +1,41 @@
+version: '2.21'
+
+services:
+  # React Frontend
+  react-app:
+    build:
+      context: ./frontend-application
+    ports:
+      - "3000:3000"
+    networks:
+      - fullstack-app-network
+    depends_on:
+      - spring-boot-app
+
+  # Spring Boot Backend
+  spring-boot-app:
+    build:
+      context: ./Backend-Application
+    ports:
+      - "8080:8080"
+    networks:
+      - fullstack-app-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/userdata
+    depends_on:
+      - mysql-db
+
+  # MySQL Database
+  mysql-db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    networks:
+      - fullstack-app-network
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+networks:
+  fullstack-app-network:
+    driver: bridge
